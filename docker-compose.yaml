@@ -1,0 +1,27 @@
+version: '3'
+services:
+
+  web:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ./code:/code
+      - ./code_2:/code_2
+      - ./site.conf:/etc/nginx/conf.d/site.conf
+      - ./site2.conf:/etc/nginx/conf.d/site2.conf
+    networks:
+      - php
+  
+  php:
+    image: php:5.5-fpm
+    volumes:
+      - ./code:/code
+      - ./code_2:/code_2
+    networks:
+      - php
+    ports:
+      - 9000:9000
+
+networks:
+  php:
